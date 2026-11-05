@@ -1,4 +1,4 @@
-# IoU + Hungarian Baseline：Mac 实验与优化对比
+# IoU + Hungarian Baseline：实验与优化对比
 
 本报告保留 Original Baseline、Optimized Baseline 和相关消融。没有训练新网络；不包含 Trackastra 或 ILP 实验。实验完成于 2026-11-05，代码整理及搬移后复查于 2026-11-06。
 
