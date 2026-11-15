@@ -142,7 +142,9 @@ dataset the current rule fires zero times out of 6 real divisions, so treat it
 
 The Trackastra research covers the eight-run fine-tuning grid, seed and cache
 reproducibility, the Greedy/ILP comparison with GT/TRA masks, and the end-to-end
-comparison with single-scale and Multi-scale Cellpose masks. All scores in this
-study use **Fluo-N2DH-GOWT1 sequence 02 for validation**.
-[Integrated report](research/trackastra/reports/integrated_conclusion.md) ·
+comparison with single-scale and Multi-scale Cellpose masks. The reports document
+**GOWT1 sequence 02 validation** and **cross-dataset evaluation on the two
+labeled HeLa sequences**.
+[GOWT1 integrated report](research/trackastra/reports/integrated_conclusion.md) ·
+[HeLa cross-dataset report](research/trackastra/reports/hela_cross_dataset.md) ·
 [Research and reproduction guide](research/trackastra/README.md)

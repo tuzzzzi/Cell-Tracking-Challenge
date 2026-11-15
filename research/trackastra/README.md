@@ -1,10 +1,10 @@
 # Trackastra research: fine-tuning, tracking decoders and Multi-scale segmentation
 
-This directory records completed Windows experiments on Fluo-N2DH-GOWT1. It is separate from the team's `src/` baseline and Cellpose modules. It contains no pretrained or fine-tuned weights, CTC images, datasets, caches, or virtual environments.
+This directory records Trackastra experiments on Fluo-N2DH-GOWT1 and Fluo-N2DL-HeLa. It is separate from the team's `src/` baseline and Cellpose modules. It contains no pretrained or fine-tuned weights, CTC images, datasets, caches, or virtual environments.
 
-**All scores here are on the Fluo-N2DH-GOWT1 `02` validation sequence.** The association experiments feed GT/TRA masks to the tracker. The end-to-end experiments feed predicted Cellpose masks to the tracker and use GT for scoring.
+**GOWT1 scores use the `02` validation sequence. HeLa scores use labeled sequences `01` and `02` for cross-dataset evaluation with fixed settings.** The GOWT1 association experiments feed GT/TRA masks to the tracker. The end-to-end experiments on both datasets feed predicted Cellpose masks to the tracker and use GT for scoring.
 
-The integrated report contains the original TensorBoard epoch loss curves, comparison tables, and conclusions. [Integrated report](reports/integrated_conclusion.md)
+The GOWT1 report contains the original TensorBoard epoch loss curves and comparison tables. The HeLa report covers segmentation before tracking and 16 end-to-end comparisons. [GOWT1 integrated report](reports/integrated_conclusion.md) · [HeLa cross-dataset report](reports/hela_cross_dataset.md)
 
 ## Results
 
@@ -12,6 +12,7 @@ The integrated report contains the original TensorBoard epoch loss curves, compa
 - [Three-seed stability and cache reproducibility](reports/reproducibility.md): seeds 43, 44, 20839; CT `0.893728 ± 0.006007` and TRA `0.996612 ± 0.000020` (sample SD, n=3). The manual seed-20839 run was reproduced exactly when its cache was reused; the root cache did not reproduce it.
 - With GT/TRA masks, `general_2d + ILP` has the highest CT (`0.964912`) and TRA (`0.999359`). ILP keeps eight detections omitted by Greedy and selects more wrong edges. [Greedy versus ILP](reports/greedy_vs_ilp.md)
 - With predicted masks, Multi-scale improves TRA and CT in all four paired comparisons. The pretrained ILP run has the highest TRA (`0.96198`) and OP_CTB (`0.94060`). The pretrained Greedy run has the highest CT (`0.37288`). [End-to-end comparison](results/multiscale_tracking_02/comparison.csv)
+- On HeLa, Multi-scale raises TRA and CT in all eight paired comparisons. The pretrained ILP run gives the highest TRA on both sequences (`0.93070` and `0.95500`). The pretrained Greedy run gives the highest CT on each. [HeLa end-to-end scores](results/hela_cross_dataset/comparison.csv) · [HeLa segmentation scores](results/hela_cross_dataset/segmentation_only.csv)
 - [Four-row comparison CSV](results/greedy_vs_ilp.csv), [changed edges](results/changed_edges.csv), [solver timing](results/solver_benchmark.json), and [curated result directory](results/).
 
 ## Layout
@@ -71,4 +72,4 @@ git worktree add --detach runs/trackastra/segmentation_source 72ed2c19d55ac606cf
   --ctc-evaluate C:\path\to\ctc_evaluate.exe
 ```
 
-The runner writes the per-frame instance masks and one CTC result directory per configuration under the output folder. The archived scores and per-frame instance counts can be inspected directly. [Results directory](results/multiscale_tracking_02/)
+For HeLa, set `--dataset data/Fluo-N2DL-HeLa` and run both `--sequence 01` and `--sequence 02`, with distinct `--output` folders such as `runs/trackastra/hela_cross_dataset/seq01` and `runs/trackastra/hela_cross_dataset/seq02`. Use the same Trackastra checkpoints and segmentation settings as for GOWT1. The runner writes frame masks and one CTC result directory per configuration. [GOWT1 results](results/multiscale_tracking_02/) · [HeLa results and settings](results/hela_cross_dataset/)

@@ -130,7 +130,7 @@ def track_and_score(model_dir, mode, images, masks, gt, run_dir, device, evaluat
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dataset", type=Path, required=True, help="Fluo-N2DH-GOWT1 folder")
+    parser.add_argument("--dataset", type=Path, required=True, help="CTC dataset folder containing the image sequences")
     parser.add_argument("--sequence", choices=("01", "02"), default="02")
     parser.add_argument("--segmentation-source", type=Path, required=True,
                         help="Teammate's src/segmentation_postprocess.py")
